@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TVShowViewController: UIViewController {
 
     
     override func viewDidLoad() {
