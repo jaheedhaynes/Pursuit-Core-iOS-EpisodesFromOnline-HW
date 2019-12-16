@@ -9,7 +9,7 @@
 import Foundation
 
 struct TVShowEpisodeAPI {
-    static func fetchQuestions(for episodeID: Int, completion: @escaping (Result<[EpidsodeList], AppError>) -> ()) {
+    static func fetchEpisodes(for episodeID: Int, completion: @escaping (Result<[EpidsodeList], AppError>) -> ()) {
         
         let endpointUrlString = "http://api.tvmaze.com/shows/\(episodeID)/episodes"
         

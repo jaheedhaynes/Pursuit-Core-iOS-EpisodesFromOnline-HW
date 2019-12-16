@@ -10,21 +10,49 @@ import UIKit
 
 class EpidodeViewController: UIViewController {
 
+    @IBOutlet var episoodeTableView: UITableView!
+    
+    var episodes = [EpidsodeList]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.episoodeTableView.reloadData()
+            }
+        }
+    }
+    
+    var showSelected: EpidsodeList?
+    
+    func loadEpisode(episodeID: Int) {
+        TVShowEpisodeAPI.fetchEpisodes(for: episodeID) { [weak self] (result) in
+            switch result {
+            case .failure(let appError):
+                print("\(appError)")
+            case .success(let episode):
+                DispatchQueue.main.async {
+                    self?.episodes = episode
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        
+        
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            guard let episodeDetailVC = segue.destination as? EpisodeDetailViewController, let indexpath = episoodeTableView.indexPathForSelectedRow else {
+                fatalError()
+            }
+            episodeDetailVC.episodes = episodes[indexpath.row]
+        }
     }
-    */
 
-}
+    
+    
+
+
+

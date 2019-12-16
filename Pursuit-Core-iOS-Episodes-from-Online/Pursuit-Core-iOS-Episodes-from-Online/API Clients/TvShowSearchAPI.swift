@@ -23,8 +23,6 @@ struct TVShowSearchAPI {
                 
             case .success(let data):
                 do {
-                    // JSONDecoder() - used to convert web data to Swift models
-                    // JSONEncoder() - used to convert Swift model to data
                     let questions = try JSONDecoder().decode([Show].self, from: data)
                     completion(.success(questions))
                 } catch {
